@@ -90,9 +90,10 @@ class QuestionnairesController < ApplicationController
   end
   
   def question_setup(questionnaire_private)
+    puts(@questionnaire.class)
     @questionnaire.private = questionnaire_private
     @questionnaire.instructor_id = session[:user].id
-
+    
     @questionnaire.name = params[:questionnaire][:name]
     @questionnaire.min_question_score = params[:questionnaire][:min_question_score]
     @questionnaire.max_question_score = params[:questionnaire][:max_question_score]
