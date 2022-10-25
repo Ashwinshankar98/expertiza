@@ -51,16 +51,17 @@ class QuestionnairesController < ApplicationController
       flash[:error] = 'A rubric or survey must have a title.'
       redirect_to controller: 'questionnaires', action: 'new', model: params[:questionnaire][:type], private: params[:questionnaire][:private]
     else
+      puts(params[:questionnaire])
       questionnaire_private = params[:questionnaire][:private] == 'true'
       display_type = params[:questionnaire][:type].split('Questionnaire')[0]
       begin
-        @questionnaire = Object.const_get(params[:questionnaire][:type]).new if Questionnaire::QUESTIONNAIRE_TYPES.include? params[:questionnaire][:type]
+        @questionnaire = Object.const_get(params[:questionnaire][:type]).new(params[:questionnaire]) if Questionnaire::QUESTIONNAIRE_TYPES.include? params[:questionnaire][:type]
       rescue StandardError
         flash[:error] = $ERROR_INFO
       end
       begin
         puts(params[:questionnaire])
-        @questionnaire= Object.const_get(params[:questionnaire][:type]).new(params[:questionnaire])
+        # @questionnaire= Object.const_get(params[:questionnaire][:type]).new(params[:questionnaire])
         puts(@questionnaire.class)
         @questionnaire.private = questionnaire_private
         @questionnaire.instructor_id = session[:user].id
