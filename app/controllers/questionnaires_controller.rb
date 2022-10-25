@@ -59,8 +59,9 @@ class QuestionnairesController < ApplicationController
         flash[:error] = $ERROR_INFO
       end
       begin
+        puts(params[:questionnaire])
         @questionnaire= Object.const_get(params[:questionnaire][:type]).new(params[:questionnaire])
-
+        puts(@questionnaire.class)
         @questionnaire.private = questionnaire_private
         @questionnaire.instructor_id = session[:user].id
 
