@@ -60,7 +60,7 @@ class QuestionnairesController < ApplicationController
         flash[:error] = $ERROR_INFO
       end
       begin
-        question_setup(questionnaire_private,params)
+        question_setup(questionnaire_private)
         # @questionnaire.private = questionnaire_private
         # @questionnaire.instructor_id = session[:user].id
         #
@@ -89,7 +89,7 @@ class QuestionnairesController < ApplicationController
     end
   end
   
-  def question_setup(questionnaire_private,params)
+  def question_setup(questionnaire_private)
     @questionnaire.private = questionnaire_private
     @questionnaire.instructor_id = session[:user].id
 
