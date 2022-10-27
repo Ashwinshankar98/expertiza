@@ -54,7 +54,7 @@ class QuestionnairesController < ApplicationController
       questionnaire_private = params[:questionnaire][:private] == 'true'
       display_type = params[:questionnaire][:type].split('Questionnaire')[0]
       begin
-        @questionnaire = Object.const_get(params[:questionnaire][:type]).new if Questionnaire::QUESTIONNAIRE_TYPES.include? params[:questionnaire][:type]
+        @questionnaire = params[:questionnaire][:type].constantize.new if Questionnaire::QUESTIONNAIRE_TYPES.include? params[:questionnaire][:type]
       rescue StandardError
         flash[:error] = $ERROR_INFO
       end
